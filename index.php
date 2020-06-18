@@ -6,20 +6,21 @@
 	$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load('file.xlsx') ;
 	$worksheet = $spreadsheet->getActiveSheet();
 	//Set header row number
-	$header=15;
+    $header=15;
+    $startCell = 'B';
 
     if (!empty($header)) {
 	  	$highestRow = $worksheet->getHighestRow();
 		$rowStart = $header;	   
 	    $highestColumn = $worksheet->getHighestColumn();
-		$movements = $worksheet->rangeToArray('B'.$rowStart.':' . $highestColumn . $rowStart, null, true, true, true);
+		$movements = $worksheet->rangeToArray($startCell.$rowStart.':' . $highestColumn . $rowStart, null, true, true, true);
 		$movements = array_filter($movements[$rowStart]); //remove empty & get first
 		print_r($movements);
         $i = -1;
         $namedDataArray = array();
         for ($row = $rowStart+1 ; $row <= $highestRow; ++$row) {
-            $dataRow = $worksheet->rangeToArray('B'.$row.':' . $highestColumn . $row, null, true, true, true);
-			if ((isset($dataRow[$row]['B'])) && ($dataRow[$row]['B'] > '')) {
+            $dataRow = $worksheet->rangeToArray($startCell.$row.':' . $highestColumn . $row, null, true, true, true);
+			if ((isset($dataRow[$row][$startCell])) && ($dataRow[$row][$startCell] > '')) {
                 ++$i;
                 foreach ($movements as $columnKey => $columnHeading) {
                     $namedDataArray[$i][$columnHeading] = $dataRow[$row][$columnKey];
