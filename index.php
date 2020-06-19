@@ -1,5 +1,5 @@
 <?php
-	require 'vendor/autoload.php';
+	require 'vendor/vendor/autoload.php';
 	use PhpOffice\PhpSpreadsheet\Spreadsheet;
 	use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 	
